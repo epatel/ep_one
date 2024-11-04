@@ -1,3 +1,5 @@
 library ep_one;
 
-export 'widgets/barrel.dart';
+export 'ep_one_common.dart';
+
+export 'widgets/widgets.dart';
