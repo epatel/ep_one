@@ -1,7 +1,7 @@
 name: ep_one
-description: "A new Flutter package project."
+description: "epatel one - bra att ha saker"
 version: 0.0.1
-homepage:
+homepage: https://github.com/epatel/ep_one
 
 environment:
   sdk: ^3.5.4
@@ -20,7 +20,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-flutter:
+#flutter:
 
   # To add assets to your package, add an assets section, like this:
   # assets:
