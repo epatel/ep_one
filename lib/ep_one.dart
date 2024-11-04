@@ -1,5 +1,7 @@
 library ep_one;
 
-export 'ep_one_common.dart';
+export 'imports/common_imports.dart';
 
-export 'widgets/widgets.dart';
+import 'widgets/widgets.dart' as ep1;
+
+typedef One = ep1.EPOne;

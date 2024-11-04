@@ -1,4 +1,4 @@
-import 'package:ep_one/ep_one_no_prefix.dart';
+import 'package:ep_one/ep_one.dart';
 import 'package:flutter/material.dart';
 
 void main() {
