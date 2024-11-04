@@ -1,1 +1,1 @@
-export 'qidgets/qidgets.dart';
+export '../qidgets/qidgets.dart';
