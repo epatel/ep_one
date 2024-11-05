@@ -44,6 +44,11 @@ extension EPOneWidgetExtension on Widget {
   Widget get black => Container(color: Colors.black, child: this);
   Widget get white => Container(color: Colors.white, child: this);
   Widget get transparent => Container(color: Colors.transparent, child: this);
+  // ------------------------------------------------------------
+  Widget get roundedCorners8 => ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: this,
+      );
 }
 
 extension EPOneStringExtension on String {
