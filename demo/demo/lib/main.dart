@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'Title Large'.titleLarge,
         'Title Medium'.titleMedium,
         'Title Small'.titleSmall,
-      ].columnCenterCenter.center,
+      ].mainAxisCenter.column.blue.center,
     );
   }
 }
