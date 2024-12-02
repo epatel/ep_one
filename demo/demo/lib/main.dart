@@ -1,3 +1,4 @@
+import 'package:demo/text_demo.dart';
 import 'package:ep_one/ep_one.dart';
 import 'package:flutter/material.dart';
 
@@ -42,22 +43,65 @@ class _MyHomePageState extends State<MyHomePage> {
       body: [
         const One(),
         'Text'.text,
-        'Body Large'.bodyLarge,
-        'Body Medium'.bodyMedium,
-        'Body Small'.bodySmall,
-        'Headline Large'.headlineLarge,
-        'Headline Medium'.headlineMedium,
-        'Headline Small'.headlineSmall,
-        'Display Large'.displayLarge,
-        'Display Medium'.displayMedium,
-        'Display Small'.displaySmall,
-        'Label Large'.labelLarge,
-        'Label Medium'.labelMedium,
-        'Label Small'.labelSmall,
-        'Title Large'.titleLarge,
-        'Title Medium'.titleMedium,
-        'Title Small'.titleSmall,
-      ].mainAxisMin.mainAxisCenter.column.amber.roundedCorners8.center,
+        'Other body1 Text'.body1(red),
+        'Other body2 Text'.body2(blue, bold),
+        'Other subtitle Text'.subtitle(),
+        PageView(
+          children: [
+            [
+              'Body Large'.bodyLarge,
+              'Body Medium'.bodyMedium,
+              'Body Small'.bodySmall,
+            ].column,
+            [
+              'Headline Large'.headlineLarge,
+              'Headline Medium'.headlineMedium,
+              'Headline Small'.headlineSmall,
+            ].column,
+            [
+              'Display Large'.displayLarge,
+              'Display Medium'.displayMedium,
+              'Display Small'.displaySmall,
+            ].column,
+            [
+              'Label Large'.labelLarge,
+              'Label Medium'.labelMedium,
+              'Label Small'.labelSmall,
+            ].column,
+            [
+              'Title Large'.titleLarge,
+              'Title Medium'.titleMedium,
+              'Title Small'.titleSmall,
+            ].column,
+          ],
+        ).width50.amber.flexible,
+        [
+          FontTheme(
+            [
+              'One ',
+              Bold([
+                'Two ',
+                Underline('Three '),
+              ]),
+              'Four ',
+              Link(
+                'Five ',
+                onTap: () => print('Five pressed'),
+              ),
+            ],
+            Theme.of(context).textTheme.headlineMedium!,
+          ),
+          'Six ',
+          LineThrough('Seven'),
+        ].text
+      ]
+          .mainAxisMin
+          .mainAxisCenter
+          .column
+          .yellow
+          .roundedCorners8
+          .height50
+          .center,
     );
   }
 }

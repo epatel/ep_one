@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 extension EPOneWidgetExtension on Widget {
@@ -44,6 +45,16 @@ extension EPOneWidgetExtension on Widget {
   Widget get black => Container(color: Colors.black, child: this);
   Widget get white => Container(color: Colors.white, child: this);
   Widget get transparent => Container(color: Colors.transparent, child: this);
+  // ------------------------------------------------------------
+  Widget get expanded => Expanded(child: this);
+  Widget get flexible => Flexible(child: this);
+  // ------------------------------------------------------------
+  Widget get width50 => FractionallySizedBox(widthFactor: 0.5, child: this);
+  Widget get width66 => FractionallySizedBox(widthFactor: 0.66, child: this);
+  Widget get width80 => FractionallySizedBox(widthFactor: 0.8, child: this);
+  Widget get height50 => FractionallySizedBox(heightFactor: 0.5, child: this);
+  Widget get height66 => FractionallySizedBox(heightFactor: 0.66, child: this);
+  Widget get height80 => FractionallySizedBox(heightFactor: 0.8, child: this);
   // ------------------------------------------------------------
   Widget get roundedCorners8 => ClipRRect(
         borderRadius: BorderRadius.circular(8),
@@ -195,4 +206,139 @@ extension EPOneListExtension on Iterable<Widget> {
     _crossAxisAlignment = CrossAxisAlignment.center;
     return row;
   }
+}
+
+Widget hepp() {
+  return const Text.rich(
+    TextSpan(
+      text: 'Hello',
+      children: [
+        TextSpan(
+          text: ' World',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
+}
+
+extension EPOneTextSpanExtension on TextSpan {
+  Text get text => Text.rich(this);
+  TextSpan o(String text) => TextSpan(text: text);
+}
+
+abstract class RichTextToken {
+  final dynamic content;
+  RichTextToken(this.content);
+}
+
+class Bold extends RichTextToken {
+  Bold(super.content);
+}
+
+class Italic extends RichTextToken {
+  Italic(super.content);
+}
+
+class Underline extends RichTextToken {
+  Underline(super.content);
+}
+
+class LineThrough extends RichTextToken {
+  LineThrough(super.content);
+}
+
+class Overline extends RichTextToken {
+  Overline(super.content);
+}
+
+class Link extends RichTextToken {
+  void Function() onTap;
+  Link(super.content, {required this.onTap});
+}
+
+class FontTheme extends RichTextToken {
+  final TextStyle style;
+  FontTheme(super.content, this.style);
+}
+
+TextSpan _decode(
+  dynamic item,
+  TextStyle style, {
+  void Function()? onTap,
+}) =>
+    TextSpan(
+      style: style,
+      text: item.content is String ? item.content : null,
+      children: item.content is Iterable<dynamic>
+          ? (item.content as Iterable<dynamic>).textSpan
+          : null,
+      recognizer:
+          onTap != null ? (TapGestureRecognizer()..onTap = onTap) : null,
+    );
+
+extension EPOneListDynamicExtension on Iterable<dynamic> {
+  List<TextSpan> get textSpan {
+    final List<TextSpan> children = [];
+    for (final dynamic item in this) {
+      if (item is String) {
+        children.add(TextSpan(text: item));
+      } else if (item is RichTextToken) {
+        if (item is Bold) {
+          children.add(
+            _decode(
+              item,
+              const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          );
+        } else if (item is Italic) {
+          children.add(
+            _decode(
+              item,
+              const TextStyle(fontStyle: FontStyle.italic),
+            ),
+          );
+        } else if (item is Underline) {
+          children.add(
+            _decode(
+              item,
+              const TextStyle(decoration: TextDecoration.underline),
+            ),
+          );
+        } else if (item is LineThrough) {
+          children.add(
+            _decode(
+              item,
+              const TextStyle(decoration: TextDecoration.lineThrough),
+            ),
+          );
+        } else if (item is Overline) {
+          children.add(
+            _decode(
+              item,
+              const TextStyle(decoration: TextDecoration.overline),
+            ),
+          );
+        } else if (item is Link) {
+          children.add(
+            _decode(
+              item,
+              const TextStyle(decoration: TextDecoration.underline),
+              onTap: item.onTap,
+            ),
+          );
+        } else if (item is FontTheme) {
+          children.add(
+            _decode(
+              item,
+              item.style,
+            ),
+          );
+        }
+      }
+    }
+    return children;
+  }
+
+  Text get text => Text.rich(TextSpan(children: textSpan));
 }
